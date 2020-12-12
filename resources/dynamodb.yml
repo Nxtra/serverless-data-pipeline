@@ -12,9 +12,7 @@ Resources:
           KeyType: "HASH"
         - AttributeName: "outputType"
           KeyType: "RANGE"
-      ProvisionedThroughput:
-        ReadCapacityUnits: 5
-        WriteCapacityUnits: 5
+      BillingMode: PAY_PER_REQUEST
       StreamSpecification:
         StreamViewType: NEW_AND_OLD_IMAGES
   TrafficJamAlertsTable:
@@ -26,8 +24,6 @@ Resources:
       KeySchema:
         - AttributeName: "uniqueId"
           KeyType: "HASH"
-      ProvisionedThroughput:
-        ReadCapacityUnits: 5
-        WriteCapacityUnits: 5
+      BillingMode: PAY_PER_REQUEST
       StreamSpecification:
         StreamViewType: NEW_AND_OLD_IMAGES

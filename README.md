@@ -81,7 +81,8 @@ This needs to be added in `yaml` in a later phase.
 * invoke: `serverless invoke --function functionName --data "hello world"`
 * invoke with log: `serverless invoke --function functionName --data "hello world" --log` eg: `serverless invoke --function RetrieveXMLTrafficData --data "hello world" --log` 
 * deploy: `sls deploy -v`
-`
+* Generate `meetpunten.csv` with `python scripts/reference_data?generate_reference_and_geojson.py` and upload the file to the bucket
+* Reconnnect the reference data in the Kinesis analytics console
 
 ## Data
 
