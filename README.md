@@ -5,9 +5,7 @@ From this data we can detect traffic jams or the traffic jams that are emerging 
 
 As you can see from the map below the government provides measurements from 4600 locations in flanders every minute.
 
-![locations-all](img/locations-all.png)
-
-*created with [http://geojson.io/](http://geojson.io/)
+![locations-all](img/locations.png)
 
 From these I selected the following six locations to filter on:
 
@@ -20,9 +18,12 @@ From these I selected the following six locations to filter on:
 | Binnenring Brussel tussen Groot-Bijgaarden en Zellik | 3159     |    Knooppunt Groot-Bijgaarden West - 3159 |
 | Binnenring Antwerpen tussen Antwerpen-Oost en Borgerhout | 3977     |    R1 RSS Snede kmpt 7,0 - 3977 |
 | Binnenring Brussel tussen Wezembeek-Oppem en Tervuren | 1065     |    R0 kmpt 23,7 dubbele seinbrug - 1065 |
-| E17 Antwerpen-Gent ter hoogte van Gentbrugge | 569      |    viaduct Gentbrugge - 569 |
+| E17 Antwerpen-Gent ter hoogte van Gentbrugge | 575      |    viaduct Gentbrugge - 575 |
+
 
 ![locations-filtered](img/locations-filtered.png)
+
+*created with [http://geojson.io/](http://geojson.io/)
 
 We could allow a lot more locations in a later phase of the project.  
 Often there are different measurements for every traffic lane.
@@ -121,4 +122,31 @@ Runt the integration tests on a separate environment
 cd src/integration_tests
 pytest tests.py 
 ```
+## Meetpunten vlaanderen test
+```xml
+<meetpunt unieke_id="2341">
+<beschrijvende_id>H192L00</beschrijvende_id>
+<volledige_naam>E313 Spitsstrook kmpt. 0,4</volledige_naam>
+<Ident_8>R0010411</Ident_8>
+<lve_nr>365</lve_nr>
+<Kmp_Rsys>1,003</Kmp_Rsys>
+<Rijstrook>R08</Rijstrook>
+<X_coord_EPSG_31370>155885,7969</X_coord_EPSG_31370>
+<Y_coord_EPSG_31370>211772,4354</Y_coord_EPSG_31370>
+<lengtegraad_EPSG_4326>4,452993707</lengtegraad_EPSG_4326>
+<breedtegraad_EPSG_4326>51,21587307</breedtegraad_EPSG_4326>
+</meetpunt>
 
+<meetpunt unieke_id="235">
+<beschrijvende_id>S311L10</beschrijvende_id>
+<volledige_naam>Knooppunt Antwerpen Oost R1-E313</volledige_naam>
+<Ident_8>R0010471</Ident_8>
+<lve_nr>64</lve_nr>
+<Kmp_Rsys>0,025</Kmp_Rsys>
+<Rijstrook>R10</Rijstrook>
+<X_coord_EPSG_31370>155834,4388</X_coord_EPSG_31370>
+<Y_coord_EPSG_31370>211883,1586</Y_coord_EPSG_31370>
+<lengtegraad_EPSG_4326>4,452260481</lengtegraad_EPSG_4326>
+<breedtegraad_EPSG_4326>51,21686882</breedtegraad_EPSG_4326>
+</meetpunt>
+```

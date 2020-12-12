@@ -6,10 +6,10 @@ import time
 import json
 from pytest import fixture
 
-INPUT_BUCKET = 'sls-data-pipelines-dev-originbucket-1ayfh2rded747'
-KINESIS_FIREHOSE_STREAM_NAME = 'sls-data-pipelines-dev-DeliveryStream-16IMVP3IZ44PI'
-ANALYTICS_PER_POINT_DYNAMODB_TABLE_NAME = 'sls-data-pipelines-dev-RealTimeAnalyticsPerPointTable-SA8QAYI0NIZS'
-TRAFFIC_JAM_ALERTS_DYNAMODB_TABLE_NAME = 'sls-data-pipelines-dev-TrafficJamAlertsTable-TTQV18GUX745'
+INPUT_BUCKET = 'sls-data-pipelines-dev-originbucket-5hxa5803ppha'
+KINESIS_FIREHOSE_STREAM_NAME = 'sls-data-pipelines-dev-DeliveryStream-Q7X2Y3M0YUA8'
+ANALYTICS_PER_POINT_DYNAMODB_TABLE_NAME = 'sls-data-pipelines-dev-RealTimeAnalyticsPerPointTable-167B4GF1RTPIP'
+TRAFFIC_JAM_ALERTS_DYNAMODB_TABLE_NAME = 'sls-data-pipelines-dev-TrafficJamAlertsTable-35XW6S30O49K'
 
 RESOURCES_PATH = './test_resources'
 S3_XML_PREFIX = 'xml/input/'
@@ -43,7 +43,7 @@ def test_when_xml_is_put_on_bucket_it_is_correctly_converted_to_json():
 
 
 def test_when_events_are_put_on_firehose_that_match_filter_criteria_then_analytics_results_arrive_in_analytics_per_point_table(db_setup):
-    events = push_pre_configured_traffic_events_to_stream()
+    push_pre_configured_traffic_events_to_stream()
 
     time.sleep(90)  # give time for firehose and analytics app to process all events
 
@@ -89,6 +89,19 @@ def test_speed_diff_accelerating_is_detected(db_setup):
     analytics_data = scan_table(ANALYTICS_PER_POINT_DYNAMODB_TABLE_NAME)
     analytics_items_as_dict = [parse_dynamo_item_to_dict(analytics_item) for analytics_item in analytics_data]
     check_speed_analytics_for_unique_id(unique_id, analytics_items_as_dict, 1)
+
+
+def test_can_measurements_without_speed_are_ignored(db_setup):
+    unique_id = FILTERED_UNIQUE_IDS[1]
+    events = create_list_of_events(unique_id, ['120', '120', '252', '252'])
+    push_traffic_events_to_stream(events)
+
+    time.sleep(90)  # give time for firehose and analytics app to process all events
+
+    analytics_data = scan_table(ANALYTICS_PER_POINT_DYNAMODB_TABLE_NAME)
+
+    analytics_items_as_dict = [parse_dynamo_item_to_dict(analytics_item) for analytics_item in analytics_data]
+    check_speed_analytics_for_unique_id(unique_id, analytics_items_as_dict, 0)
 
 
 def check_traffic_jam_analytics_for_unique_id(unique_id, events, expected_status):
