@@ -236,24 +236,24 @@ functions:
           arn:
             Fn::GetAtt: [RealTimeAnalyticsPerPointTable, StreamArn]
           maximumRetryAttempts: 2
-  AlertSender:
-    handler: /opt/python/lumigo_tracer._handler
-    module: src/AlertSender
-    timeout: 10
-    reservedConcurrency: 1
-    layers:
-      - arn:aws:lambda:eu-west-1:114300393969:layer:lumigo-python-tracer:115
-    environment:
-      SLACK_WEBHOOK: ${ssm:/slack/traffic/webhook}
-      SLACK_CHANNEL: traffic-alerts
-      FLASK_API: http://flask-env.eba-jp3gn4xp.eu-west-1.elasticbeanstalk.com/send-notification
-    iamRoleStatementsInherit: true
-    events:
-      - stream:
-          type: dynamodb
-          arn:
-            Fn::GetAtt: [TrafficJamAlertsTable, StreamArn]
-          maximumRetryAttempts: 2
+  # AlertSender:
+  #   handler: /opt/python/lumigo_tracer._handler
+  #   module: src/AlertSender
+  #   timeout: 10
+  #   reservedConcurrency: 1
+  #   layers:
+  #     - arn:aws:lambda:eu-west-1:114300393969:layer:lumigo-python-tracer:115
+  #   environment:
+  #     SLACK_WEBHOOK: ${ssm:/slack/traffic/webhook}
+  #     SLACK_CHANNEL: traffic-alerts
+  #     FLASK_API: http://flask-env.eba-jp3gn4xp.eu-west-1.elasticbeanstalk.com/send-notification
+  #   iamRoleStatementsInherit: true
+  #   events:
+  #     - stream:
+  #         type: dynamodb
+  #         arn:
+  #           Fn::GetAtt: [TrafficJamAlertsTable, StreamArn]
+  #         maximumRetryAttempts: 2
   CurrentSituation:
     handler: /opt/python/lumigo_tracer._handler
     module: src/CurrentSituation
